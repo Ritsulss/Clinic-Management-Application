@@ -44,3 +44,21 @@ Follow the steps below to set up this project locally:
 ```bash
 git clone https://github.com/Ritsulss/Clinic-Management-Application.git
 cd Clinic-Management-Application
+```
+
+###2. Create a virtual environment (optional but recommended)
+```bash
+python -m venv venv
+source venv/bin/activate  # macOS / Linux
+venv\Scripts\activate     # Windows
+```
+
+###3. Install Dependencies
+```bash
+pip install flask
+```
+###4. Run the Application
+```bash
+python app.py
+```
+Open your browser and go to http://127.0.0.1:5000 to view the app.
