@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Clinic Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Medical Clinic Management System</h1>
+        <nav class="nav-menu">
+            <a href="#" class="active" data-section="patients">Patients</a>
+            <a href="#" data-section="doctors">Doctors</a>
+            <a href="#" data-section="appointments">Appointments</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Patients Section -->
+        <div id="patients-content" class="content-section">
+            <h2 class="section-title">Patient Management</h2>
+
+            <!-- Add Patient Form -->
+            <form id="patient-form" class="mt-3">
+                <div class="form-group">
+                    <label class="form-label" for="patient-name">Name</label>
+                    <input type="hidden" id="patient-id">
+                    <input class="form-input" type="text" id="patient-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="patient-dob">Date of Birth</label>
+                    <input class="form-input" type="date" id="patient-dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="patient-gender">Gender</label>
+                    <select class="form-input" id="patient-gender" name="gender" required>
+                        <option value="">Select gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="patient-phone">Phone</label>
+                    <input class="form-input" type="text" id="patient-phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="patient-address">Address</label>
+                    <input class="form-input" type="text" id="patient-address" name="address" required>
+                </div>
+                <button type="submit" class="btn btn-success">Add Patient</button>
+            </form>
+
+            <!-- Feedback message -->
+            <div id="patient-message" class="mt-2"></div>
+
+            <!-- Patients Table -->
+            <div class="mt-3">
+                <h3 class="mb-1">All Patients</h3>
+                <table class="data-table" id="patients-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filled dynamically with JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Doctors Section -->
+        <div id="doctors-content" class="content-section hidden">
+            <h2 class="section-title">Doctor Management</h2>
+
+            <!-- Add / Edit Doctor Form -->
+            <form id="doctor-form" class="mt-3">
+                <input type="hidden" id="doctor-id">
+                <div class="form-group">
+                    <label class="form-label" for="doctor-name">Name</label>
+                    <input class="form-input" type="text" id="doctor-name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="doctor-phone">Phone</label>
+                    <input class="form-input" type="text" id="doctor-phone" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="doctor-email">Email</label>
+                    <input class="form-input" type="email" id="doctor-email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="doctor-specialization">Specialization</label>
+                    <input class="form-input" type="text" id="doctor-specialization" required>
+                </div>
+                <button type="submit" class="btn btn-success">Add Doctor</button>
+            </form>
+
+            <div id="doctor-message" class="mt-2"></div>
+
+            <div class="mt-3">
+                <h3 class="mb-1">All Doctors</h3>
+                <table class="data-table" id="doctors-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Specialization</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filled dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Appointments Section -->
+        <div id="appointments-content" class="content-section hidden">
+            <h2 class="section-title">Appointment Management</h2>
+
+            <!-- Schedule Appointment Form -->
+            <form id="appointment-form" class="mt-3">
+                <div class="form-group">
+                    <label class="form-label" for="appointment-patient">Patient</label>
+                    <select class="form-input" id="appointment-patient" required></select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="appointment-doctor">Doctor</label>
+                    <select class="form-input" id="appointment-doctor" required></select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="appointment-date">Date</label>
+                    <input class="form-input" type="date" id="appointment-date" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="appointment-time">Time</label>
+                    <input class="form-input" type="time" id="appointment-time" required>
+                </div>
+                <button type="submit" class="btn btn-success">Schedule Appointment</button>
+            </form>
+
+            <div id="appointment-message" class="mt-2"></div>
+
+            <div class="mt-3">
+                <h3 class="mb-1">All Appointments</h3>
+                <button class="btn btn-secondary mb-1" id="appointments-today-btn">Show Today's Appointments</button>
+                <button class="btn mb-1" id="appointments-all-btn">Show All Appointments</button>
+                <table class="data-table" id="appointments-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filled dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-menu a').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Hide all content sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                // Show the selected section
+                const section = this.getAttribute('data-section');
+                const targetSection = document.getElementById(section + '-content');
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+            });
+        });
+
+        // --- Patients: load list and handle Add Patient form ---
+
+        let editingPatientId = null;
+
+        async function loadPatients() {
+            try {
+                const response = await fetch('/api/patients');
+                const patients = await response.json();
+                const tbody = document.querySelector('#patients-table tbody');
+                tbody.innerHTML = '';
+
+                patients.forEach(p => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${p.patient_id}</td>
+                        <td>${p.name}</td>
+                        <td>${p.dob || ''}</td>
+                        <td>${p.gender || ''}</td>
+                        <td>${p.phone || ''}</td>
+                        <td>${p.address || ''}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" data-action="edit" data-id="${p.patient_id}">Edit</button>
+                            <button class="btn btn-danger btn-sm" data-action="delete" data-id="${p.patient_id}">Delete</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                // Attach click handlers for edit/delete
+                tbody.querySelectorAll('button[data-action="edit"]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        startEditPatient(btn.getAttribute('data-id'));
+                    });
+                });
+                tbody.querySelectorAll('button[data-action="delete"]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        deletePatient(btn.getAttribute('data-id'));
+                    });
+                });
+            } catch (err) {
+                console.error('Error loading patients:', err);
+                const msg = document.getElementById('patient-message');
+                if (msg) {
+                    msg.textContent = 'Error loading patients.';
+                    msg.style.color = 'red';
+                }
+            }
+        }
+
+        const patientForm = document.getElementById('patient-form');
+        const patientSubmitButton = patientForm ? patientForm.querySelector('button[type="submit"]') : null;
+
+        async function startEditPatient(id) {
+            const tbody = document.querySelector('#patients-table tbody');
+            const row = Array.from(tbody.querySelectorAll('tr')).find(r => r.firstElementChild.textContent == id);
+            if (!row) return;
+
+            const cells = row.querySelectorAll('td');
+            document.getElementById('patient-id').value = id;
+            document.getElementById('patient-name').value = cells[1].textContent;
+            document.getElementById('patient-dob').value = cells[2].textContent;
+            document.getElementById('patient-gender').value = cells[3].textContent;
+            document.getElementById('patient-phone').value = cells[4].textContent;
+            document.getElementById('patient-address').value = cells[5].textContent;
+
+            editingPatientId = id;
+            if (patientSubmitButton) {
+                patientSubmitButton.textContent = 'Update Patient';
+            }
+        }
+
+        async function deletePatient(id) {
+            const messageDiv = document.getElementById('patient-message');
+            if (!confirm('Are you sure you want to delete this patient?')) {
+                return;
+            }
+            try {
+                const response = await fetch(`/api/patients/${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                if (!response.ok) {
+                    messageDiv.textContent = result.error || 'Failed to delete patient.';
+                    messageDiv.style.color = 'red';
+                    return;
+                }
+                messageDiv.textContent = 'Patient deleted successfully!';
+                messageDiv.style.color = 'green';
+                loadPatients();
+            } catch (err) {
+                console.error('Error deleting patient:', err);
+                messageDiv.textContent = 'Error deleting patient.';
+                messageDiv.style.color = 'red';
+            }
+        }
+
+        if (patientForm) {
+            patientForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const messageDiv = document.getElementById('patient-message');
+                messageDiv.textContent = '';
+                messageDiv.style.color = '';
+
+                const data = {
+                    name: document.getElementById('patient-name').value,
+                    dob: document.getElementById('patient-dob').value,
+                    gender: document.getElementById('patient-gender').value,
+                    phone: document.getElementById('patient-phone').value,
+                    address: document.getElementById('patient-address').value
+                };
+
+                const isEditing = !!editingPatientId;
+
+                try {
+                    const url = isEditing ? `/api/patients/${editingPatientId}` : '/api/patients';
+                    const method = isEditing ? 'PUT' : 'POST';
+
+                    const response = await fetch(url, {
+                        method,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        messageDiv.textContent = result.error || (isEditing ? 'Failed to update patient.' : 'Failed to add patient.');
+                        messageDiv.style.color = 'red';
+                        return;
+                    }
+
+                    messageDiv.textContent = isEditing ? 'Patient updated successfully!' : 'Patient added successfully!';
+                    messageDiv.style.color = 'green';
+
+                    // Clear the form and reset edit state
+                    patientForm.reset();
+                    editingPatientId = null;
+                    document.getElementById('patient-id').value = '';
+                    if (patientSubmitButton) {
+                        patientSubmitButton.textContent = 'Add Patient';
+                    }
+
+                    // Reload patients list
+                    loadPatients();
+                } catch (err) {
+                    console.error('Error saving patient:', err);
+                    messageDiv.textContent = isEditing ? 'Error updating patient.' : 'Error creating patient.';
+                    messageDiv.style.color = 'red';
+                }
+            });
+        }
+
+        // --- Doctors: CRUD ---
+        let editingDoctorId = null;
+
+        async function loadDoctors() {
+            try {
+                const response = await fetch('/api/doctors');
+                const doctors = await response.json();
+                const tbody = document.querySelector('#doctors-table tbody');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+
+                doctors.forEach(d => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${d.doctor_id}</td>
+                        <td>${d.name}</td>
+                        <td>${d.phone}</td>
+                        <td>${d.email}</td>
+                        <td>${d.specialization}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" data-action="edit-doctor" data-id="${d.doctor_id}">Edit</button>
+                            <button class="btn btn-danger btn-sm" data-action="delete-doctor" data-id="${d.doctor_id}">Delete</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                tbody.querySelectorAll('button[data-action="edit-doctor"]').forEach(btn => {
+                    btn.addEventListener('click', () => startEditDoctor(btn.getAttribute('data-id')));
+                });
+                tbody.querySelectorAll('button[data-action="delete-doctor"]').forEach(btn => {
+                    btn.addEventListener('click', () => deleteDoctor(btn.getAttribute('data-id')));
+                });
+            } catch (err) {
+                console.error('Error loading doctors:', err);
+                const msg = document.getElementById('doctor-message');
+                if (msg) {
+                    msg.textContent = 'Error loading doctors.';
+                    msg.style.color = 'red';
+                }
+            }
+        }
+
+        const doctorForm = document.getElementById('doctor-form');
+        const doctorSubmitButton = doctorForm ? doctorForm.querySelector('button[type="submit"]') : null;
+
+        async function startEditDoctor(id) {
+            const tbody = document.querySelector('#doctors-table tbody');
+            const row = Array.from(tbody.querySelectorAll('tr')).find(r => r.firstElementChild.textContent == id);
+            if (!row) return;
+
+            const cells = row.querySelectorAll('td');
+            document.getElementById('doctor-id').value = id;
+            document.getElementById('doctor-name').value = cells[1].textContent;
+            document.getElementById('doctor-phone').value = cells[2].textContent;
+            document.getElementById('doctor-email').value = cells[3].textContent;
+            document.getElementById('doctor-specialization').value = cells[4].textContent;
+
+            editingDoctorId = id;
+            if (doctorSubmitButton) doctorSubmitButton.textContent = 'Update Doctor';
+        }
+
+        async function deleteDoctor(id) {
+            const messageDiv = document.getElementById('doctor-message');
+            if (!confirm('Are you sure you want to delete this doctor?')) return;
+            try {
+                const response = await fetch(`/api/doctors/${id}`, { method: 'DELETE' });
+                const result = await response.json();
+                if (!response.ok) {
+                    messageDiv.textContent = result.error || 'Failed to delete doctor.';
+                    messageDiv.style.color = 'red';
+                    return;
+                }
+                messageDiv.textContent = 'Doctor deleted successfully!';
+                messageDiv.style.color = 'green';
+                loadDoctors();
+            } catch (err) {
+                console.error('Error deleting doctor:', err);
+                messageDiv.textContent = 'Error deleting doctor.';
+                messageDiv.style.color = 'red';
+            }
+        }
+
+        if (doctorForm) {
+            doctorForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const messageDiv = document.getElementById('doctor-message');
+                messageDiv.textContent = '';
+                messageDiv.style.color = '';
+
+                const data = {
+                    name: document.getElementById('doctor-name').value,
+                    phone: document.getElementById('doctor-phone').value,
+                    email: document.getElementById('doctor-email').value,
+                    specialization: document.getElementById('doctor-specialization').value
+                };
+
+                const isEditing = !!editingDoctorId;
+
+                try {
+                    const url = isEditing ? `/api/doctors/${editingDoctorId}` : '/api/doctors';
+                    const method = isEditing ? 'PUT' : 'POST';
+                    const response = await fetch(url, {
+                        method,
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        messageDiv.textContent = result.error || (isEditing ? 'Failed to update doctor.' : 'Failed to add doctor.');
+                        messageDiv.style.color = 'red';
+                        return;
+                    }
+
+                    messageDiv.textContent = isEditing ? 'Doctor updated successfully!' : 'Doctor added successfully!';
+                    messageDiv.style.color = 'green';
+
+                    doctorForm.reset();
+                    editingDoctorId = null;
+                    document.getElementById('doctor-id').value = '';
+                    if (doctorSubmitButton) doctorSubmitButton.textContent = 'Add Doctor';
+
+                    loadDoctors();
+                } catch (err) {
+                    console.error('Error saving doctor:', err);
+                    messageDiv.textContent = isEditing ? 'Error updating doctor.' : 'Error creating doctor.';
+                    messageDiv.style.color = 'red';
+                }
+            });
+        }
+
+        // --- Appointments: list, create, today filter ---
+
+        async function populateAppointmentDropdowns() {
+            try {
+                const [patientsRes, doctorsRes] = await Promise.all([
+                    fetch('/api/patients'),
+                    fetch('/api/doctors')
+                ]);
+                const patients = await patientsRes.json();
+                const doctors = await doctorsRes.json();
+
+                const patientSelect = document.getElementById('appointment-patient');
+                const doctorSelect = document.getElementById('appointment-doctor');
+                if (!patientSelect || !doctorSelect) return;
+
+                patientSelect.innerHTML = '<option value="">Select patient</option>';
+                patients.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.patient_id;
+                    opt.textContent = `${p.name} (ID ${p.patient_id})`;
+                    patientSelect.appendChild(opt);
+                });
+
+                doctorSelect.innerHTML = '<option value="">Select doctor</option>';
+                doctors.forEach(d => {
+                    const opt = document.createElement('option');
+                    opt.value = d.doctor_id;
+                    opt.textContent = `${d.name} (${d.specialization})`;
+                    doctorSelect.appendChild(opt);
+                });
+            } catch (err) {
+                console.error('Error loading dropdowns:', err);
+            }
+        }
+
+        async function loadAppointments(url = '/api/appointments') {
+            try {
+                const response = await fetch(url);
+                const appts = await response.json();
+                const tbody = document.querySelector('#appointments-table tbody');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+
+                appts.forEach(a => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${a.appointment_id}</td>
+                        <td>${a.date}</td>
+                        <td>${a.time}</td>
+                        <td>${a.patient_name}</td>
+                        <td>${a.doctor_name}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" data-action="delete-appointment" data-id="${a.appointment_id}">Delete</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                tbody.querySelectorAll('button[data-action="delete-appointment"]').forEach(btn => {
+                    btn.addEventListener('click', () => deleteAppointment(btn.getAttribute('data-id')));
+                });
+            } catch (err) {
+                console.error('Error loading appointments:', err);
+                const msg = document.getElementById('appointment-message');
+                if (msg) {
+                    msg.textContent = 'Error loading appointments.';
+                    msg.style.color = 'red';
+                }
+            }
+        }
+
+        async function deleteAppointment(id) {
+            const messageDiv = document.getElementById('appointment-message');
+            if (!confirm('Are you sure you want to delete this appointment?')) return;
+            try {
+                const response = await fetch(`/api/appointments/${id}`, { method: 'DELETE' });
+                const result = await response.json();
+                if (!response.ok) {
+                    messageDiv.textContent = result.error || 'Failed to delete appointment.';
+                    messageDiv.style.color = 'red';
+                    return;
+                }
+                messageDiv.textContent = 'Appointment deleted successfully!';
+                messageDiv.style.color = 'green';
+                loadAppointments();
+            } catch (err) {
+                console.error('Error deleting appointment:', err);
+                messageDiv.textContent = 'Error deleting appointment.';
+                messageDiv.style.color = 'red';
+            }
+        }
+
+        const appointmentForm = document.getElementById('appointment-form');
+        if (appointmentForm) {
+            appointmentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const messageDiv = document.getElementById('appointment-message');
+                messageDiv.textContent = '';
+                messageDiv.style.color = '';
+
+                const data = {
+                    patient_id: document.getElementById('appointment-patient').value,
+                    doctor_id: document.getElementById('appointment-doctor').value,
+                    date: document.getElementById('appointment-date').value,
+                    time: document.getElementById('appointment-time').value
+                };
+
+                try {
+                    const response = await fetch('/api/appointments', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    const result = await response.json();
+                    if (!response.ok) {
+                        messageDiv.textContent = result.error || 'Failed to create appointment.';
+                        messageDiv.style.color = 'red';
+                        return;
+                    }
+                    messageDiv.textContent = 'Appointment created successfully!';
+                    messageDiv.style.color = 'green';
+                    appointmentForm.reset();
+                    loadAppointments();
+                } catch (err) {
+                    console.error('Error creating appointment:', err);
+                    messageDiv.textContent = 'Error creating appointment.';
+                    messageDiv.style.color = 'red';
+                }
+            });
+        }
+
+        const todayBtn = document.getElementById('appointments-today-btn');
+        const allBtn = document.getElementById('appointments-all-btn');
+        if (todayBtn) {
+            todayBtn.addEventListener('click', () => loadAppointments('/api/appointments/today'));
+        }
+        if (allBtn) {
+            allBtn.addEventListener('click', () => loadAppointments('/api/appointments'));
+        }
+
+        // Initial loads when page first loads
+        loadPatients();
+        loadDoctors();
+        populateAppointmentDropdowns();
+        loadAppointments();
+    </script>
+</body>
+</html>
