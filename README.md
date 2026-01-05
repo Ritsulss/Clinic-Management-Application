@@ -32,6 +32,7 @@ This project uses:
 
 - Python (Flask web framework)
 - HTML / CSS for front-end pages
+- Javascript for dynamic interactions
 - SQLite database for data persistence
 
 ---
