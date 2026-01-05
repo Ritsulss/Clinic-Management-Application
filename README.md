@@ -1,6 +1,6 @@
 # Clinic Management Application
 
-A simple CRUD (Create, Read, Update, Delete) web application designed to manage **patients**, **doctors**, and **appointments** for a medical clinic. This project demonstrates basic full-stack development and database interaction using Python and HTML/CSS. :contentReference[oaicite:1]{index=1}
+A simple CRUD (Create, Read, Update, Delete) web application designed to manage **patients**, **doctors**, and **appointments** for a medical clinic. This project demonstrates basic full-stack development and database interaction using Python and HTML/CSS.
 
 ---
 
