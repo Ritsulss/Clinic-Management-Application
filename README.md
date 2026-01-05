@@ -12,7 +12,7 @@ This Clinic Management Application allows users to:
 - Add, view, and update doctor information  
 - Schedule, edit, and delete appointments  
 
-It’s a lightweight project ideal for learning how backend applications interact with a database and serve dynamic content to users. :contentReference[oaicite:2]{index=2}
+It’s a lightweight project ideal for learning how backend applications interact with a database and serve dynamic content to users.
 
 ---
 
@@ -26,7 +26,7 @@ It’s a lightweight project ideal for learning how backend applications interac
 
 ---
 
-##Tech Stack
+## Tech Stack
 
 This project uses:
 
@@ -36,7 +36,7 @@ This project uses:
 
 ---
 
-##Getting Started
+## Getting Started
 
 Follow the steps below to set up this project locally:
 
@@ -46,18 +46,18 @@ git clone https://github.com/Ritsulss/Clinic-Management-Application.git
 cd Clinic-Management-Application
 ```
 
-###2. Create a virtual environment (optional but recommended)
+### 2. Create a virtual environment (optional but recommended)
 ```bash
 python -m venv venv
 source venv/bin/activate  # macOS / Linux
 venv\Scripts\activate     # Windows
 ```
 
-###3. Install Dependencies
+### 3. Install Dependencies
 ```bash
 pip install flask
 ```
-###4. Run the Application
+### 4. Run the Application
 ```bash
 python app.py
 ```
